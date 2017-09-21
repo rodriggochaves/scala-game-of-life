@@ -1,4 +1,4 @@
-package br.unb.cic.poo.gol
+package gameoflife.model
 
 /**
  * Classe usada para computar as estatisticas 
