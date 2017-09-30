@@ -9,7 +9,7 @@ import scala.annotation.tailrec
  * 
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-object GameEngine {
+abstract class GameEngine {
   
   val height = Main.height
   val width = Main.width
@@ -130,23 +130,25 @@ object GameEngine {
   
   
   /* verifica se uma celula deve ser mantida viva */
-  private def shouldKeepAlive(i: Int, j: Int): Boolean = {
-    (cells(i)(j).isAlive) &&
-      (numberOfNeighborhoodAliveCells(i, j) == 2 || numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
+   private def shouldKeepAlive(i: Int, j: Int)
+  //: Boolean = {
+  //   (cells(i)(j).isAlive) &&
+  //     (numberOfNeighborhoodAliveCells(i, j) == 2 || numberOfNeighborhoodAliveCells(i, j) == 3)
+  // }
   
   /* verifica se uma celula deve (re)nascer */
-  private def shouldRevive(i: Int, j: Int): Boolean = {
-    (!cells(i)(j).isAlive) && 
-      (numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
+  private def shouldRevive(i: Int, j: Int)
+  // : Boolean = {
+  //   (!cells(i)(j).isAlive) && 
+  //     (numberOfNeighborhoodAliveCells(i, j) == 3)
+  // }
 
   
   /*
 	 * Computa o numero de celulas vizinhas vivas, dada uma posicao no ambiente
 	 * de referencia identificada pelos argumentos (i,j).
 	 */
-  private def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
+  protected def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
     var alive = 0
     for(a <- (i - 1 to i + 1)) {
       for(b <- (j - 1 to j + 1)) {
