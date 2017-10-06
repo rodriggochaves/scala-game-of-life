@@ -130,10 +130,10 @@ abstract class GameEngine {
   
   
   // verifica se uma celula deve ser mantida viva
-   abstract def shouldKeepAlive(i: Int, j: Int)
+  def shouldKeepAlive(i: Int, j: Int) : Boolean
   
   // verifica se uma celula deve (re)nascer
-  abstract def shouldRevive(i: Int, j: Int)
+  def shouldRevive(i: Int, j: Int) : Boolean
   
   
   /*
