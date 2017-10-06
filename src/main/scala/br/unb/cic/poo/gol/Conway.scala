@@ -1,4 +1,5 @@
-class Conway extends GameEngine{
+package br.unb.cic.poo.gol
+object Conway extends GameEngine{
     override def shouldKeepAlive(i: Int, j: Int): Boolean = {
 
     cells(i)(j).isAlive &&
