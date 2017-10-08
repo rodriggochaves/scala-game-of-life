@@ -1,6 +1,9 @@
-package br.unb.cic.poo.gol
+package gameoflife.view
 
 import scala.io.StdIn.{readInt, readLine}
+
+import gameoflife.controller.GameEngine
+import gameoflife.controller.GameController
 
 /**
  * Representa o componente View do GoL
@@ -23,7 +26,7 @@ object GameView {
   
   /**
 	 * Atualiza o componente view (representado pela classe GameBoard),
-	 * possivelmente como uma resposta a uma atualiza��o do jogo.
+	 * possivelmente como uma resposta a uma atualizacao do jogo.
 	 */
 	def update {
 		printFirstRow
