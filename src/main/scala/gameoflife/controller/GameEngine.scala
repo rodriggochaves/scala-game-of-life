@@ -13,7 +13,7 @@ import gameoflife.Main
  *
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-object GameEngine {
+trait GameEngine {
   val height = Main.height
   val width = Main.width
   val cells = Array.ofDim[Cell](height, width)
@@ -118,25 +118,16 @@ object GameEngine {
   }
 
   /* verifica se uma celula deve ser mantida viva */
-  private def shouldKeepAlive(i: Int, j: Int): Boolean = (
-    (cells(i)(j).isAlive) &&
-    (
-      numberOfNeighborhoodAliveCells(i, j) == 2 ||
-      numberOfNeighborhoodAliveCells(i, j) == 3
-    )
-  )
+  def shouldKeepAlive(i: Int, j: Int): Boolean
 
   /* verifica se uma celula deve (re)nascer */
-  private def shouldRevive(i: Int, j: Int): Boolean = {
-    (!cells(i)(j).isAlive) &&
-      (numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
+  def shouldRevive(i: Int, j: Int): Boolean
 
   /*
    * Computa o numero de celulas vizinhas vivas, dada uma posicao no ambiente
    * de referencia identificada pelos argumentos (i,j).
    */
-  private def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
+  protected def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
     var alive = 0
 
     for(a <- (i - 1 to i + 1)) {

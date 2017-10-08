@@ -10,6 +10,11 @@ import gameoflife.controller.GameEngine
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameController {
+  var engine: GameEngine = null
+
+  def setEngine(eng: GameEngine) =
+    engine = eng
+
   def start {
     GameView.update
   }
@@ -23,7 +28,7 @@ object GameController {
 
   def makeCellAlive(i: Int, j: Int) {
     try {
-      GameEngine.makeCellAlive(i, j)
+      engine.makeCellAlive(i, j)
       GameView.update
     } catch {
       case ex: IllegalArgumentException => {
@@ -33,7 +38,7 @@ object GameController {
   }
 
   def nextGeneration {
-    GameEngine.nextGeneration
+    engine.nextGeneration
     GameView.update
   }
 }

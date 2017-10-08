@@ -19,6 +19,7 @@ object GameView {
   private final val MAKE_CELL_ALIVE = 1
   private final val NEXT_GENERATION = 2
   private final val HALT = 3
+  private val engine = GameController.engine
 
   /**
    * Atualiza o componente view (representado pela classe GameBoard),
@@ -28,9 +29,9 @@ object GameView {
     printFirstRow
     printLine
 
-    for(i <- (0 until GameEngine.height)) {
-      for(j <- (0 until GameEngine.width)) {
-        print(if (GameEngine.isCellAlive(i, j))  ALIVE_CELL else DEAD_CELL);
+    for(i <- (0 until engine.height)) {
+      for(j <- (0 until engine.width)) {
+        print(if (engine.isCellAlive(i, j))  ALIVE_CELL else DEAD_CELL);
       }
       println("   " + i)
       printLine
@@ -65,10 +66,10 @@ object GameView {
     var j = 0
 
     do {
-      print("\n Inform the row number (0 - " + (GameEngine.height - 1) + "): ")
+      print("\n Inform the row number (0 - " + (engine.height - 1) + "): ")
       i = readInt
 
-      print("\n Inform the column number (0 - " + (GameEngine.width - 1) + "): ")
+      print("\n Inform the column number (0 - " + (engine.width - 1) + "): ")
       j = readInt
 
     } while(!validPosition(i,j))
@@ -83,7 +84,7 @@ object GameView {
   private def validPosition(i: Int, j: Int): Boolean = {
     println(i);
     println(j);
-    i >= 0 && i < GameEngine.height && j >= 0 && j < GameEngine.width
+    i >= 0 && i < engine.height && j >= 0 && j < engine.width
   }
 
   def parseOption(option: String): Int = option match {
@@ -95,7 +96,7 @@ object GameView {
 
   /* Imprime uma linha usada como separador das linhas do tabuleiro */
   private def printLine() {
-    for(j <- (0 until GameEngine.width)) {
+    for(j <- (0 until engine.width)) {
       print(LINE)
     }
     println()
@@ -107,7 +108,7 @@ object GameView {
   private def printFirstRow {
     println("\n \n");
 
-    for(j <- (0 until GameEngine.width)) {
+    for(j <- (0 until engine.width)) {
       print("   " + j + "   ")
     }
     println()
