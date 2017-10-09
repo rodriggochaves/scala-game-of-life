@@ -1,4 +1,4 @@
-package gameoflife.model
+package gameoflife.controller
 
 object Conway extends GameEngine{
     override def shouldKeepAlive(i: Int, j: Int): Boolean = {
