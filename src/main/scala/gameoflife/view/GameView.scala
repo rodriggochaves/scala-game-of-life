@@ -2,7 +2,7 @@ package gameoflife.view
 
 import scala.io.StdIn.{readInt, readLine}
 
-import gameoflife.controller.GameEngine
+import gameoflife.controller.Conway
 import gameoflife.controller.GameController
 
 /**

@@ -2,7 +2,7 @@ package gameoflife.controller
 
 import gameoflife.view.GameView
 import gameoflife.model.Statistics
-import gameoflife.controller.GameEngine
+import gameoflife.controller.Conway
 
 /**
  * Relaciona o componente View com o componente Model. 

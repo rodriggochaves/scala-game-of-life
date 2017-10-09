@@ -13,7 +13,7 @@ import gameoflife.Main
  * 
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-abstract class GameEngine {
+trait GameEngine {
   
   val height = Main.height
   val width = Main.width
