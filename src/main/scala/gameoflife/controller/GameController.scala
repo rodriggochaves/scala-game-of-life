@@ -10,9 +10,12 @@ import gameoflife.controller.Conway
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameController {
+  gameEngine: GameEngine =>
+
+  val gameView = new GameView with Conway
   
   def start {
-    GameView.update
+    gameView.update
   }
   
   def halt() {
@@ -24,8 +27,8 @@ object GameController {
 
   def makeCellAlive(i: Int, j: Int) {
     try {
-			Conway.makeCellAlive(i, j)
-			GameView.update
+			gameEngine.makeCellAlive(i, j)
+			gameView.update
 		}
 		catch {
 		  case ex: IllegalArgumentException => {
@@ -35,8 +38,8 @@ object GameController {
   }
   
   def nextGeneration {
-    Conway.nextGeneration
-    GameView.update
+    gameEngine.nextGeneration
+    gameView.update
   }
   
 }
