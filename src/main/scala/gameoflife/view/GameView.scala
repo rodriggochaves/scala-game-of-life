@@ -2,16 +2,20 @@ package gameoflife.view
 
 import scala.io.StdIn.{readInt, readLine}
 
-import gameoflife.controller.GameEngine
 import gameoflife.controller.GameController
+<<<<<<< HEAD
 import gameoflife.controller.Conway
+=======
+import gameoflife.controller.GameEngine
+>>>>>>> 42ca5eaf8c3e242215914c791683c79416d3f29c
 
 /**
  * Representa o componente View do GoL
  * 
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-object GameView {
+
+class GameView( gameEngine: GameEngine ) {
   
 	private final val LINE = "+-----+"
 	private final val DEAD_CELL = "|     |"
@@ -32,9 +36,9 @@ object GameView {
 		printFirstRow
 		printLine
 		
-		for(i <- (0 until Conway.height)) {
-		  for(j <- (0 until Conway.width)) {
-		    print(if (Conway.isCellAlive(i, j))  ALIVE_CELL else DEAD_CELL);
+		for(i <- (0 until gameEngine.height)) {
+		  for(j <- (0 until gameEngine.width)) {
+		    print(if (gameEngine.isCellAlive(i, j))  ALIVE_CELL else DEAD_CELL);
 		  }
 		  println("   " + i)
 		  printLine
@@ -71,10 +75,10 @@ object GameView {
 	  var j = 0
 	  
 	  do {
-      print("\n Inform the row number (0 - " + (Conway.height - 1) + "): ")
+      print("\n Inform the row number (0 - " + (gameEngine.height - 1) + "): ")
       i = readInt
       
-      print("\n Inform the column number (0 - " + (Conway.width - 1) + "): ")
+      print("\n Inform the column number (0 - " + (gameEngine.width - 1) + "): ")
       j = readInt
       
     } while(!validPosition(i,j))
@@ -88,7 +92,7 @@ object GameView {
   private def validPosition(i: Int, j: Int): Boolean = {
 		println(i);
 		println(j);
-		i >= 0 && i < Conway.height && j >= 0 && j < Conway.width
+		i >= 0 && i < gameEngine.height && j >= 0 && j < gameEngine.width
 	}
   
 	def parseOption(option: String): Int = option match {
@@ -101,7 +105,7 @@ object GameView {
   
   /* Imprime uma linha usada como separador das linhas do tabuleiro */
 	private def printLine() {
-	  for(j <- (0 until Conway.width)) {
+	  for(j <- (0 until gameEngine.width)) {
 	    print(LINE)
 	  }
 	  println()
@@ -113,7 +117,7 @@ object GameView {
 	private def printFirstRow {
 		println("\n \n");
 		
-		for(j <- (0 until Conway.width)) {
+		for(j <- (0 until gameEngine.width)) {
 		  print("   " + j + "   ")
 		}
 		println()

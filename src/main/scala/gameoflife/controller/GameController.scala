@@ -2,7 +2,7 @@ package gameoflife.controller
 
 import gameoflife.view.GameView
 import gameoflife.model.Statistics
-import gameoflife.controller.GameEngine
+import gameoflife.controller.ConwayEngine
 
 /**
  * Relaciona o componente View com o componente Model. 
@@ -10,9 +10,11 @@ import gameoflife.controller.GameEngine
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameController {
+
+  var gameView = new GameView( ConwayEngine );
   
   def start {
-    GameView.update
+    gameView.update
   }
   
   def halt() {
@@ -24,8 +26,8 @@ object GameController {
 
   def makeCellAlive(i: Int, j: Int) {
     try {
-			Conway.makeCellAlive(i, j)
-			GameView.update
+			ConwayEngine.makeCellAlive(i, j)
+			gameView.update
 		}
 		catch {
 		  case ex: IllegalArgumentException => {
@@ -35,8 +37,8 @@ object GameController {
   }
   
   def nextGeneration {
-    Conway.nextGeneration
-    GameView.update
+    ConwayEngine.nextGeneration
+    gameView.update
   }
   
 }
