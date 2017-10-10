@@ -1,4 +1,8 @@
-package br.unb.cic.poo.gol
+package gameoflife.controller
+
+import gameoflife.view.GameView
+import gameoflife.model.Statistics
+import gameoflife.controller.GameEngine
 
 /**
  * Relaciona o componente View com o componente Model. 
