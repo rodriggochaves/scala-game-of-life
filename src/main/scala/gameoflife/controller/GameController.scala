@@ -1,8 +1,7 @@
 package gameoflife.controller
-
+import scala.collection.mutable.MutableList
 import gameoflife.view.GameView
 import gameoflife.model.Statistics
-import gameoflife.controller.ConwayEngine
 
 /**
  * Relaciona o componente View com o componente Model. 
@@ -11,7 +10,17 @@ import gameoflife.controller.ConwayEngine
  */
 object GameController {
 
-  var gameView = new GameView( ConwayEngine );
+  private var modes :MutableList[GameEngine] = new MutableList[GameEngine]
+  modes += Conway
+  modes += ConwayEngine
+
+  var option = 0
+  def getMode(i:Int):GameEngine = {
+    return modes(i)
+  }
+  //Option é a escolha do usuário
+  var gameView = new GameView( getMode(option) )
+
   
   def start {
     gameView.update
@@ -26,7 +35,7 @@ object GameController {
 
   def makeCellAlive(i: Int, j: Int) {
     try {
-			ConwayEngine.makeCellAlive(i, j)
+			getMode(option).makeCellAlive(i, j)
 			gameView.update
 		}
 		catch {
@@ -37,7 +46,7 @@ object GameController {
   }
   
   def nextGeneration {
-    ConwayEngine.nextGeneration
+    getMode(option).nextGeneration
     gameView.update
   }
   
