@@ -1,6 +1,8 @@
 package gameoflife.controller
 
 import gameoflife.view.GameView
+import gameoflife.view.terminal.GameWriter
+import gameoflife.view.terminal.GameListener
 import gameoflife.model.Statistics
 import gameoflife.controller.ConwayEngine
 
@@ -11,10 +13,25 @@ import gameoflife.controller.ConwayEngine
  */
 object GameController {
 
-  var gameView = new GameView( ConwayEngine );
+  private final val MAKE_CELL_ALIVE = 1
+  private final val NEXT_GENERATION = 2
+  private final val HALT = 3
+
+  var gameWriter: GameWriter = new GameWriter( ConwayEngine )
+  var gameListener: GameListener = new GameListener( ConwayEngine )
   
   def start {
-    gameView.update
+    // chama o update do listener
+    update
+  }
+
+  def update() {
+    gameWriter.update
+    gameListener.printOptions match {
+      case MAKE_CELL_ALIVE => makeCellAlive; update
+      case NEXT_GENERATION => nextGeneration; update
+      case HALT => halt
+    }
   }
   
   def halt() {
@@ -24,10 +41,13 @@ object GameController {
     System.exit(0)
   }
 
-  def makeCellAlive(i: Int, j: Int) {
+  def makeCellAlive {
+
+    val (i, j): (Int, Int) = gameListener.makeCellAlive
+
     try {
 			ConwayEngine.makeCellAlive(i, j)
-			gameView.update
+			gameWriter.update
 		}
 		catch {
 		  case ex: IllegalArgumentException => {
@@ -38,7 +58,7 @@ object GameController {
   
   def nextGeneration {
     ConwayEngine.nextGeneration
-    gameView.update
+    gameWriter.update
   }
   
 }
