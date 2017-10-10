@@ -3,11 +3,7 @@ package gameoflife.view
 import scala.io.StdIn.{readInt, readLine}
 
 import gameoflife.controller.GameController
-<<<<<<< HEAD
-import gameoflife.controller.Conway
-=======
 import gameoflife.controller.GameEngine
->>>>>>> 42ca5eaf8c3e242215914c791683c79416d3f29c
 
 /**
  * Representa o componente View do GoL
