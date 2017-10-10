@@ -4,6 +4,7 @@ import scala.io.StdIn.{readInt, readLine}
 
 import gameoflife.controller.GameEngine
 import gameoflife.controller.GameController
+import gameoflife.controller.Conway
 
 /**
  * Representa o componente View do GoL
