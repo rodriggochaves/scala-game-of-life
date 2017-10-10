@@ -7,7 +7,7 @@ object Conway extends GameEngine{
     override def shouldKeepAlive(i: Int, j: Int): Boolean = {
 
     cells(i)(j).isAlive &&
-      (numberOfNeighborhoodAliveCells(i, j) == 2 || numberOfNeighborhoodAliveCells(i, j) == 3)
+      (numberOfNeighborhoodAliveCells(i, j) == 1 || numberOfNeighborhoodAliveCells(i, j) == 2)
 
   }
 
@@ -16,7 +16,7 @@ object Conway extends GameEngine{
   override def shouldRevive(i: Int, j: Int): Boolean = {
 
     (!cells(i)(j).isAlive) &&
-      (numberOfNeighborhoodAliveCells(i, j) == 3)
+      (numberOfNeighborhoodAliveCells(i, j) == 1)
 
   }
 }
