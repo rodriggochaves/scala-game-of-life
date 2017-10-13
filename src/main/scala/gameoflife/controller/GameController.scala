@@ -30,6 +30,7 @@ object GameController {
   
   def start {
     // chama o update do listener
+    gameWriter.update
     update
   }
 
