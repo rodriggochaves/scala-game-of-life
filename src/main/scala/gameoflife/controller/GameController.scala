@@ -1,6 +1,7 @@
 package gameoflife.controller
 import scala.collection.mutable.MutableList
-import gameoflife.view.GameView
+import gameoflife.view.terminal.GameWriter
+import gameoflife.view.terminal.GameListener
 import gameoflife.model.Statistics
 
 /**
@@ -11,19 +12,35 @@ import gameoflife.model.Statistics
 object GameController {
 
   private var modes :MutableList[GameEngine] = new MutableList[GameEngine]
-  modes += Conway
   modes += ConwayEngine
+  modes += Conway
 
+  //Option é a escolha do usuário
   var option = 0
   def getMode(i:Int):GameEngine = {
     return modes(i)
   }
-  //Option é a escolha do usuário
-  var gameView = new GameView( getMode(option) )
 
+  private final val MAKE_CELL_ALIVE = 1
+  private final val NEXT_GENERATION = 2
+  private final val HALT = 3
+
+  var gameWriter: GameWriter = new GameWriter( getMode(option) )
+  var gameListener: GameListener = new GameListener( getMode(option) )
   
   def start {
-    gameView.update
+    // chama o update do listener
+    update
+  }
+
+    
+  def update() {
+    gameListener.printOptions match {
+      case MAKE_CELL_ALIVE => makeCellAlive; update
+      case NEXT_GENERATION => nextGeneration; update
+      case HALT => halt
+    }
+    
   }
   
   def halt() {
@@ -33,10 +50,14 @@ object GameController {
     System.exit(0)
   }
 
-  def makeCellAlive(i: Int, j: Int) {
+  def makeCellAlive {
+
+    val (i, j): (Int, Int) = gameListener.makeCellAlive
+
     try {
+
 			getMode(option).makeCellAlive(i, j)
-			gameView.update
+			gameWriter.update
 		}
 		catch {
 		  case ex: IllegalArgumentException => {
@@ -47,7 +68,7 @@ object GameController {
   
   def nextGeneration {
     getMode(option).nextGeneration
-    gameView.update
+    gameWriter.update
   }
   
 }

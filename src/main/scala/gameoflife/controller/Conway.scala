@@ -1,6 +1,5 @@
 package gameoflife.controller
 
-import gameoflife.view.GameView
 import gameoflife.model.Statistics
 import gameoflife.controller.GameEngine
 object Conway extends GameEngine{
@@ -16,7 +15,6 @@ object Conway extends GameEngine{
   override def shouldRevive(i: Int, j: Int): Boolean = {
 
     (!cells(i)(j).isAlive) &&
-      (numberOfNeighborhoodAliveCells(i, j) == 1)
-
+      (numberOfNeighborhoodAliveCells(i, j) == 0)
   }
 }
