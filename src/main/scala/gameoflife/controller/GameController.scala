@@ -24,7 +24,7 @@ object GameController {
 
   def makeCellAlive(i: Int, j: Int) {
     try {
-			GameEngine.makeCellAlive(i, j)
+			Conway.makeCellAlive(i, j)
 			GameView.update
 		}
 		catch {
@@ -35,7 +35,7 @@ object GameController {
   }
   
   def nextGeneration {
-    GameEngine.nextGeneration
+    Conway.nextGeneration
     GameView.update
   }
   
