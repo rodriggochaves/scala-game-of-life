@@ -20,7 +20,6 @@ abstract class GameEngine {
   
   val cells = Array.ofDim[Cell](height, width)
   
-  
   for(i <- (0 until height)) {
     for(j <- (0 until width)) {
       cells(i)(j) = new Cell

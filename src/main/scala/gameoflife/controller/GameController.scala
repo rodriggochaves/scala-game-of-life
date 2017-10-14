@@ -1,6 +1,6 @@
 package gameoflife.controller
 
-import gameoflife.view.GameView
+import gameoflife.view.ui.GameView
 import gameoflife.model.Statistics
 
 
@@ -10,9 +10,13 @@ import gameoflife.model.Statistics
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameController {
+
+  val gameView = new GameView
   
   def start {
-    GameView.update
+    gameView.main(Array())
+    // GameView.update
+    // GameView.update
   }
   
   def halt() {
@@ -25,7 +29,7 @@ object GameController {
   def makeCellAlive(i: Int, j: Int) {
     try {
 			Conway.makeCellAlive(i, j)
-			GameView.update
+			// GameView.update
 		}
 		catch {
 		  case ex: IllegalArgumentException => {
@@ -36,7 +40,7 @@ object GameController {
   
   def nextGeneration {
     Conway.nextGeneration
-    GameView.update
+    // GameView.update
   }
   
 }
