@@ -43,7 +43,9 @@ object GameController {
     //oops, nao muito legal fazer sysout na classe Controller
     println("\n \n")
     Statistics.display
-    System.exit(0)
+    gameView.stop
+    // why? why???
+    // System.exit(0)
   }
 
   def makeCellAlive {

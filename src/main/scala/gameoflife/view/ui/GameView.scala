@@ -69,4 +69,8 @@ class GameView( gameEngine: GameEngine ) extends JFXApp {
     scene.layoutY = 10
     return scene
   }
+
+  def stop() {
+    stopApp()
+  }
 }
