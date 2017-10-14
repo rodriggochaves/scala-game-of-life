@@ -7,6 +7,8 @@ import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.Label
 import scalafx.scene.shape.Rectangle
+import scalafx.scene.input.MouseEvent
+import scalafx.event.EventHandler
 
 import gameoflife.controller.GameEngine
 
@@ -21,6 +23,15 @@ class GameView( gameEngine: GameEngine ) extends JFXApp {
     height = 500 
     scene = new Scene {
       content = initializaBoard
+    handleEvent(MouseEvent.Any) {
+      me: MouseEvent => {
+        me.eventType match {
+          case MouseEvent.MousePressed => {
+            updateBoard
+          }
+          case _                       => {}
+        }
+      }
     }
   }
 
