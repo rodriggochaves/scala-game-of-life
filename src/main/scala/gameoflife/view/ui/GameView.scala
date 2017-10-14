@@ -15,6 +15,7 @@ class GameView extends JFXApp {
 
   val height = Main.height
   val width = Main.width
+  var listCell = Array[Rectangle]()
 
   stage = new PrimaryStage {
     width = 500
@@ -24,20 +25,23 @@ class GameView extends JFXApp {
     }
   }
 
-  private def initializaBoard(): List[Rectangle] = {
-    var listCell = List[Rectangle]()
+  private def initializaBoard(): Array[Rectangle] = {
     for(i <- (0 until height)) {
       for(j <- (0 until width)) {
-        listCell = listCell ::: List(new Rectangle {
+        listCell = listCell :+ new Rectangle {
           x = (i * 20 + 10) 
           y = (j * 20 + 10)
           width = 16
           height = 16
           fill = Black
-        })
+        }
       }
     }
-    print(listCell.size)
     return listCell
+  }
+
+  def makeCellAlive( i: Int, j: Int ) {
+    var currentCell = listCell((i * width) + j)
+    currentCell.fill_=(Red)
   }
 }
