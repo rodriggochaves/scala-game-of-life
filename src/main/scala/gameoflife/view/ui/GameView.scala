@@ -2,16 +2,15 @@ package gameoflife.view.ui
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.Includes._
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.Label
-import scalafx.scene.layout.BorderPane
 import scalafx.scene.shape.Rectangle
-import scalafx.scene.paint.Color._
 
-import gameoflife.Main
+import gameoflife.controller.GameEngine
 
-class GameView extends JFXApp {
+class GameView( gameEngine: GameEngine ) extends JFXApp {
 
   val height = Main.height
   val width = Main.width
