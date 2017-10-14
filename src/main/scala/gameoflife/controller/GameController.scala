@@ -17,7 +17,7 @@ object GameController {
   private final val HALT = 3
 
   var gameListener: GameListener = new GameListener( ConwayEngine )
-  var gameView: GameView = new GameView
+  var gameView: GameView = new GameView( ConwayEngine )
   
   def start {
     // chama o update do listener
@@ -52,7 +52,7 @@ object GameController {
 
     try {
 			ConwayEngine.makeCellAlive(i, j)
-      gameView.makeCellAlive(i, j)
+      gameView.updateBoard
 		}
 		catch {
 		  case ex: IllegalArgumentException => {
@@ -63,6 +63,7 @@ object GameController {
   
   def nextGeneration {
     ConwayEngine.nextGeneration
+    gameView.updateBoard
   }
   
 }

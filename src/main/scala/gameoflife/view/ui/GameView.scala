@@ -14,15 +14,14 @@ import gameoflife.controller.GameEngine
 
 class GameView( gameEngine: GameEngine ) extends JFXApp {
 
-  val height = Main.height
-  val width = Main.width
-  var listCell = Array[Rectangle]()
+  var cells = Array[CellRectangle]()
 
   stage = new PrimaryStage {
     width = 500
     height = 500 
     scene = new Scene {
-      content = initializaBoard
+      content = initializeBoard
+    }
     handleEvent(MouseEvent.Any) {
       me: MouseEvent => {
         me.eventType match {
@@ -35,19 +34,13 @@ class GameView( gameEngine: GameEngine ) extends JFXApp {
     }
   }
 
-  private def initializaBoard(): Array[Rectangle] = {
-    for(i <- (0 until height)) {
-      for(j <- (0 until width)) {
-        listCell = listCell :+ new Rectangle {
-          x = (i * 20 + 10) 
-          y = (j * 20 + 10)
-          width = 16
-          height = 16
-          fill = Black
-        }
+  def initializeBoard(): Array[CellRectangle] = {
+    for(i <- (0 until gameEngine.height)) {
+      for(j <- (0 until gameEngine.width)) {
+        cells = cells :+ new CellRectangle( i, j, gameEngine )
       }
     }
-    return listCell
+    return cells
   }
 
   def makeCellAlive( i: Int, j: Int ) {
