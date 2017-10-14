@@ -43,8 +43,11 @@ class GameView( gameEngine: GameEngine ) extends JFXApp {
     return cells
   }
 
-  def makeCellAlive( i: Int, j: Int ) {
-    var currentCell = listCell((i * width) + j)
-    currentCell.fill_=(Red)
+  def updateBoard() {
+    for(i <- (0 until gameEngine.height)) {
+      for(j <- (0 until gameEngine.width)) {
+        cells(i * gameEngine.width + j).isAlive(gameEngine.isCellAlive(i, j))
+      }
+    }
   }
 }
