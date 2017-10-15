@@ -36,7 +36,7 @@ object GameController {
   private final val HALT = 4
 
   var gameListener: GameListener = new GameListener( getMode(currentMode) )
-  var gameView: GameView = new GameView( getMode(currentMode) )
+  var gameView: GameView = new GameView( getMode(currentMode), modes )
 
   def start {
     // chama o update do listener
@@ -54,7 +54,7 @@ object GameController {
     gameListener.printOptions match {
       case MAKE_CELL_ALIVE => makeCellAlive; update
       case NEXT_GENERATION => nextGeneration; update
-      case CHANGE_GAME_MODE => printOptionsGameMode; changeGameMode
+      // case CHANGE_GAME_MODE => changeGameMode
       case HALT => halt
     }
   }
@@ -68,24 +68,24 @@ object GameController {
     // System.exit(0)
   }
 
-  def printOptionsGameMode{
-    var option = 0
-    println("\n\n")
+  // def printOptionsGameMode{
+  //   var option = 0
+  //   println("\n\n")
     
-      println("Select one game modes: \n \n"); 
-      var indice = 1
-      for(rule <- modes){
-        println(s"[${indice}] - ${rule.name}")
-        indice += 1
-      }
-      println("[-1] - Exit")
+  //     println("Select one game modes: \n \n"); 
+  //     var indice = 1
+  //     for(rule <- modes){
+  //       println(s"[${indice}] - ${rule.name}")
+  //       indice += 1
+  //     }
+  //     println("[-1] - Exit")
     
-      print("\n \n Option: ");
+  //     print("\n \n Option: ");
       
-      option = parseOptionGameMode(readLine)
+  //     option = parseOptionGameMode(readLine)
 
-    currentMode = option
-  }
+  //   currentMode = option
+  // }
 
   private def parseOptionGameMode(option: String): Int = option match {
     case "1" => return 0
@@ -95,10 +95,9 @@ object GameController {
     case "-1" => return -1
   }
 
-  def changeGameMode(){
-    gameView = new GameView( getMode(currentMode) )
-    gameListener = new GameListener( getMode(currentMode) )
-    start
+  def changeGameMode( modeNumber: Int ) {
+    currentMode = modeNumber
+    gameView.setGameEngine( getMode(currentMode) )
   }
 
   def makeCellAlive {

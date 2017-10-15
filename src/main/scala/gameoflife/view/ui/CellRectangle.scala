@@ -7,7 +7,7 @@ import scalafx.scene.paint.Color._
 
 import gameoflife.controller.GameEngine
 
-class CellRectangle( i: Int, j: Int, gameEngine: GameEngine ) extends Rectangle {
+class CellRectangle( i: Int, j: Int, var gameEngine: GameEngine ) extends Rectangle {
   
   x = (i * 20 + 10) 
   y = (j * 20 + 10)
@@ -31,6 +31,10 @@ class CellRectangle( i: Int, j: Int, gameEngine: GameEngine ) extends Rectangle 
     } else {
       fill = Black     
     }
+  }
+
+  def setGameEngine(g: GameEngine) {
+    gameEngine = g
   }
 
 }
