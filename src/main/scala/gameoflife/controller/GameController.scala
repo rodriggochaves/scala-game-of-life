@@ -20,8 +20,8 @@ object GameController {
   addGameMode(Teste)
   
 
-  //Option é a escolha do usuário
-  var currentMode:Int = 1
+  //currentMode é a escolha do usuário
+  var currentMode:Int = 0
   def getMode(i:Int):GameEngine = {
     return modes(i)
   }
@@ -45,22 +45,40 @@ object GameController {
     gameListener.printOptions match {
       case MAKE_CELL_ALIVE => makeCellAlive; update
       case NEXT_GENERATION => nextGeneration; update
-      case CHANGE_GAME_MODE => changeGameMode();  
+      case CHANGE_GAME_MODE => printOptionsGameMode; changeGameMode()  
       case HALT => halt
     }
     
   }
 
-  def changeGameMode(){
+  def printOptionsGameMode{
+    var option = 0
+    println("\n\n")
     
-    if(currentMode == 0){
-      currentMode = 1
-    }else if(currentMode == 1){
-      currentMode = 2
-    }
-    else{
-      currentMode = 0
-    }
+      println("Select one game modes: \n \n"); 
+      var indice = 1
+      for(rule <- modes){
+        println(s"[${indice}] - ${rule.name}")
+        indice += 1
+      }
+      println("[-1] - Exit")
+    
+      print("\n \n Option: ");
+      
+      option = parseOptionGameMode(readLine)
+
+    currentMode = option
+  }
+
+  private def parseOptionGameMode(option: String): Int = option match {
+    case "1" => return 0
+    case "2" => return 1
+    case "3" => return 2
+    case "-1" => return -1
+  }
+  
+
+  def changeGameMode(){
     gameWriter = new GameWriter( getMode(currentMode) )
     gameListener = new GameListener( getMode(currentMode) )
     start
