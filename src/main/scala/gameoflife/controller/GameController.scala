@@ -17,7 +17,7 @@ object GameController {
   }
   addGameMode(ConwayEngine)
   addGameMode(Conway)
-  addGameMode(Teste)
+  addGameMode(HighLife)
   
 
   //currentMode é a escolha do usuário
