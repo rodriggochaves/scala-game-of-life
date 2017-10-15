@@ -16,7 +16,7 @@ object GameController {
     modes += gameMode
   }
   addGameMode(ConwayEngine)
-  addGameMode(Conway)
+  addGameMode(EasyMode)
   addGameMode(HighLife)
   addGameMode(Teste)
   
