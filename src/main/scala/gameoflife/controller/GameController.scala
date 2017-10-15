@@ -7,18 +7,17 @@ import gameoflife.controller.CareTaker
 import gameoflife.controller.Originator
 
 /**
- * Relaciona o componente View com o componente Model. 
- * 
+ * Relaciona o componente View com o componente Model.
+ *
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameController {
-
   def start {
     GameView.update
   }
 
   def halt() {
-    //oops, nao muito legal fazer sysout na classe Controller
+    // oops, nao muito legal fazer sysout na classe Controller
     println("\n \n")
     Statistics.display
     System.exit(0)
@@ -41,6 +40,7 @@ object GameController {
     GameView.update
   }
 
-  def undo{
+  def undo {
+
   }
 }
