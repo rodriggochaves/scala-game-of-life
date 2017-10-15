@@ -9,24 +9,36 @@ import gameoflife.model.Statistics
 import gameoflife.Main
 
 /**
- * Representa a Game Engine do GoL 
- * 
+ * Representa a Game Engine do GoL
+ *
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-abstract class GameEngine {
-  
+abstract class GameEngine extends Originator {
+
   val height = Main.height
   val width = Main.width
-  
+
   val cells = Array.ofDim[Cell](height, width)
-  
-  
+
+
   for(i <- (0 until height)) {
     for(j <- (0 until width)) {
       cells(i)(j) = new Cell
     }
   }
+  /**
+    * Salva a grid atual no memento
+    */
+  def save():Memento={
+    return new GameEngineMemento(this.cells);
+  }
 
+  /**
+    * Restaura do memento a grid anterior
+    */
+  def restore(m:Memento)={
+    this.cells = m.cells();
+  }
 
   /**
    * Calcula uma nova geracao do ambiente. Essa implementacao utiliza o
@@ -156,3 +168,4 @@ abstract class GameEngine {
   }
 
 }
+

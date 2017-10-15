@@ -21,6 +21,7 @@ object GameView {
 	private final val MAKE_CELL_ALIVE = 1
 	private final val NEXT_GENERATION = 2
 	private final val HALT = 3
+	private final val UNDO = 4
 	
   
   
@@ -29,12 +30,18 @@ object GameView {
 	 * possivelmente como uma resposta a uma atualizacao do jogo.
 	 */
 	def update {
-		printFirstRow
+	 	printFirstRow
 		printLine
 		
 		for(i <- (0 until Conway.height)) {
 		  for(j <- (0 until Conway.width)) {
-		    print(if (Conway.isCellAlive(i, j))  ALIVE_CELL else DEAD_CELL);
+		    print(
+					if (Conway.isCellAlive(i, j))
+						ALIVE_CELL
+					else
+						DEAD_CELL
+				);
+
 		  }
 		  println("   " + i)
 		  printLine
@@ -52,7 +59,8 @@ object GameView {
 			println("[1] Make a cell alive");
 			println("[2] Next generation");
 			println("[3] Halt");
-		
+			println("[4] Undo");
+
 			print("\n \n Option: ");
 			
 			option = parseOption(readLine)
@@ -62,9 +70,10 @@ object GameView {
       case MAKE_CELL_ALIVE => makeCellAlive
       case NEXT_GENERATION => nextGeneration
       case HALT => halt
+			case UNDO => undo
     }
 	}
-  
+
   private def makeCellAlive {
 	  
 	  var i = 0
@@ -84,6 +93,7 @@ object GameView {
 
   private def nextGeneration = GameController.nextGeneration
   private def halt = GameController.halt
+	private def undo = GameController.undo
 	
   private def validPosition(i: Int, j: Int): Boolean = {
 		println(i);
@@ -95,7 +105,8 @@ object GameView {
     case "1" => MAKE_CELL_ALIVE
     case "2" => NEXT_GENERATION
     case "3" => HALT
-    case _ => INVALID_OPTION
+		case "4" => UNDO
+		case _ => INVALID_OPTION
   }
 	
   
