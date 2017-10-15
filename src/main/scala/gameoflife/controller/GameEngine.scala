@@ -13,13 +13,12 @@ import gameoflife.Main
  *
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-abstract class GameEngine {
-
+trait GameEngine {
+  
   val height = Main.height
   val width = Main.width
-
+  def name:String
   val cells = Array.ofDim[Cell](height, width)
-
 
   for(i <- (0 until height)) {
     for(j <- (0 until width)) {
@@ -42,10 +41,8 @@ abstract class GameEngine {
    */
 
   def nextGeneration {
-
     val mustRevive = new ListBuffer[Cell]
     val mustKill = new ListBuffer[Cell]
-
 
     for(i <- (0 until height)) {
       for(j <- (0 until width)) {
@@ -58,7 +55,6 @@ abstract class GameEngine {
       }
     }
 
-
     for(cell <- mustRevive) {
       cell.revive
       Statistics.recordRevive
@@ -68,7 +64,6 @@ abstract class GameEngine {
       cell.kill
       Statistics.recordKill
     }
-
 
   }
 
@@ -163,7 +158,7 @@ abstract class GameEngine {
     var x = 0
     var z = 0
 
-    if((i==0 || i==height-1) && (j>=1 && j<width-1)){
+    if((i==0 || i==height-1) && (j>=1 && j< width-1)){
       x = returnLineMod(i - 1)
       for(a <- x to height-1) {
         for(b <- (returnColumnMod(j - 1) to returnColumnMod(j + 1))) {
@@ -182,7 +177,7 @@ abstract class GameEngine {
         }
       }
 
-    } else if((j==0 || j==width-1) && (i>=1 && i<height-1)){
+    } else if ( ( j==0 || j==width-1) && (i>=1 && i<height-1)) {
       x = returnColumnMod(j - 1)
       for(a <- (returnLineMod(i - 1) to returnLineMod(i + 1))) {
         for(b <- x to width-1) {
@@ -236,7 +231,7 @@ abstract class GameEngine {
         }
       }
 
-    } else{
+    } else {
       for(a <- (returnLineMod(i - 1) to returnLineMod(i + 1))) {
         for(b <- (returnColumnMod(j - 1) to returnColumnMod(j + 1))) {
           if (verifyToCountCell(a,b,i,j)) {
