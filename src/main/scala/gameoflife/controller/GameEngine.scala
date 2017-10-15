@@ -17,7 +17,7 @@ trait GameEngine {
   
   val height = Main.height
   val width = Main.width
-  
+  def name:String
   val cells = Array.ofDim[Cell](height, width)
   
   

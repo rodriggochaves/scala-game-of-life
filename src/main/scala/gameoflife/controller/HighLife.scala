@@ -2,7 +2,8 @@ package gameoflife.controller
 
 import gameoflife.model.Statistics
 import gameoflife.controller.GameEngine
-object Teste extends GameEngine{
+object HighLife extends GameEngine{
+    override def name:String = "HighLife"
     override def shouldKeepAlive(i: Int, j: Int): Boolean = {
 
     cells(i)(j).isAlive &&
