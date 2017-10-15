@@ -20,7 +20,8 @@ class GameListener(gameEngine: GameEngine) {
   private final val INVALID_OPTION = 0
   private final val MAKE_CELL_ALIVE = 1
   private final val NEXT_GENERATION = 2
-  private final val HALT = 3
+  private final val CHANGE_GAME_MODE = 3
+  private final val HALT = 4
   
   def printOptions(): Int = {
   
@@ -31,7 +32,8 @@ class GameListener(gameEngine: GameEngine) {
       println("Select one of the options: \n \n"); 
       println("[1] Make a cell alive");
       println("[2] Next generation");
-      println("[3] Halt");
+      println("[3] Change game mode");
+      println("[4] Halt");
     
       print("\n \n Option: ");
       
@@ -70,7 +72,8 @@ class GameListener(gameEngine: GameEngine) {
   private def parseOption(option: String): Int = option match {
     case "1" => MAKE_CELL_ALIVE
     case "2" => NEXT_GENERATION
-    case "3" => HALT
+    case "3" => CHANGE_GAME_MODE
+    case "4" => HALT
     case _ => INVALID_OPTION
   }
   
