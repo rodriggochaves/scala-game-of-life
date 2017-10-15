@@ -12,21 +12,27 @@ import gameoflife.model.Statistics
 object GameController {
 
   private var modes :MutableList[GameEngine] = new MutableList[GameEngine]
-  modes += ConwayEngine
-  modes += Conway
+  def addGameMode(gameMode:GameEngine){
+    modes += gameMode
+  }
+  addGameMode(ConwayEngine)
+  addGameMode(Conway)
+  addGameMode(Teste)
+  
 
   //Option é a escolha do usuário
-  var option = 0
+  var currentMode:Int = 1
   def getMode(i:Int):GameEngine = {
     return modes(i)
   }
 
   private final val MAKE_CELL_ALIVE = 1
   private final val NEXT_GENERATION = 2
-  private final val HALT = 3
+  private final val CHANGE_GAME_MODE = 3
+  private final val HALT = 4
 
-  var gameWriter: GameWriter = new GameWriter( getMode(option) )
-  var gameListener: GameListener = new GameListener( getMode(option) )
+  var gameWriter: GameWriter = new GameWriter( getMode(currentMode) )
+  var gameListener: GameListener = new GameListener( getMode(currentMode) )
   
   def start {
     // chama o update do listener
@@ -39,9 +45,25 @@ object GameController {
     gameListener.printOptions match {
       case MAKE_CELL_ALIVE => makeCellAlive; update
       case NEXT_GENERATION => nextGeneration; update
+      case CHANGE_GAME_MODE => changeGameMode();  
       case HALT => halt
     }
     
+  }
+
+  def changeGameMode(){
+    
+    if(currentMode == 0){
+      currentMode = 1
+    }else if(currentMode == 1){
+      currentMode = 2
+    }
+    else{
+      currentMode = 0
+    }
+    gameWriter = new GameWriter( getMode(currentMode) )
+    gameListener = new GameListener( getMode(currentMode) )
+    start
   }
   
   def halt() {
@@ -53,22 +75,23 @@ object GameController {
 
   def makeCellAlive {
 
+      gameWriter.update
     val (i, j): (Int, Int) = gameListener.makeCellAlive
 
     try {
 
-			getMode(option).makeCellAlive(i, j)
-			gameWriter.update
-		}
-		catch {
-		  case ex: IllegalArgumentException => {
-		    println(ex.getMessage)
-		  }
-		}
+      getMode(currentMode).makeCellAlive(i, j)
+      gameWriter.update
+    }
+    catch {
+      case ex: IllegalArgumentException => {
+        println(ex.getMessage)
+      }
+    }
   }
   
   def nextGeneration {
-    getMode(option).nextGeneration
+    getMode(currentMode).nextGeneration
     gameWriter.update
   }
   
