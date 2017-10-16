@@ -1,4 +1,4 @@
-package gameoflife.controller
+package gameoflife.traits
 
 import scala.collection.mutable.Stack
 

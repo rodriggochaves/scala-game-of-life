@@ -1,6 +1,7 @@
 package gameoflife.controller
 
-import gameoflife.controller.CareTaker
+import gameoflife.traits.Memento
+import gameoflife.traits.CareTaker
 
 object GameEngineCareTaker extends CareTaker {
   def addMemento(m: Memento) = {

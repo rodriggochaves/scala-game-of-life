@@ -1,5 +1,6 @@
 package gameoflife.controller
 
+import gameoflife.traits.Memento
 import gameoflife.model.Cell
 
 /**

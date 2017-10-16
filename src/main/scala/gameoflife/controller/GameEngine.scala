@@ -3,8 +3,11 @@ package gameoflife.controller
 import scala.collection.mutable.ListBuffer
 import scala.util.control.TailCalls.TailRec
 import scala.annotation.tailrec
+
 import gameoflife.model.Cell
 import gameoflife.model.Statistics
+import gameoflife.traits.Memento
+import gameoflife.traits.Originator
 import gameoflife.Main
 
 /**
