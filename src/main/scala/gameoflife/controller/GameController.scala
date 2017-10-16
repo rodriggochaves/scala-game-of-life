@@ -3,8 +3,6 @@ package gameoflife.controller
 import gameoflife.view.GameView
 import gameoflife.model.Statistics
 import gameoflife.controller.GameEngine
-import gameoflife.controller.CareTaker
-import gameoflife.controller.Originator
 
 /**
  * Relaciona o componente View com o componente Model.
