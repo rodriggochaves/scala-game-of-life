@@ -28,7 +28,7 @@ abstract class GameEngine extends Originator {
    * Salva a grid atual no memento
    */
   def save() : Memento = {
-    return new GameEngineMemento(this.cells);
+    return new Memento(this.cells);
   }
 
   /**
