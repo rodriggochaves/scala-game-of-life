@@ -11,4 +11,13 @@ class Cell {
   def isAlive = alive
   def kill { alive = false }
   def revive { alive = true }
+  def copy(): Cell = {
+    val r = new Cell()
+
+    if (alive) {
+      r.revive
+    }
+
+    return r
+  }
 }

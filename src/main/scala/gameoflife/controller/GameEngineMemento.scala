@@ -12,7 +12,7 @@ class GameEngineMemento(val from: Array[Array[Cell]]) extends Memento {
 
   for (i <- 0 until height) {
     for (j <- 0 until width) {
-      data(i)(j) = from(i)(j)
+      data(i)(j) = from(i)(j).copy()
     }
   }
 
