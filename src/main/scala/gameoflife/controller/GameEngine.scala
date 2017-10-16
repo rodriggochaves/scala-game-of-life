@@ -18,6 +18,8 @@ import gameoflife.Main
 abstract class GameEngine extends Originator {
   val height = Main.height
   val width = Main.width
+
+  def name: String
   val cells = Array.ofDim[Cell](height, width)
 
   for(i <- (0 until height)) {
@@ -137,23 +139,116 @@ abstract class GameEngine extends Originator {
     }
   }
 
+  //calcula o mod para mundo infinito em relacao as linhas
+  def returnLineMod(a : Int) : Int = {
+    var result : Int = ((a % height) + height) % height
+    return result
+  }
+
+  //calcula o mod para mundo infinito em relacao as colunas
+  def returnColumnMod(b : Int) : Int = {
+    var result : Int = ((b % width) + width) % width
+    return result
+  }
+
+  def verifyToCountCell(a : Int, b : Int, i : Int, j : Int) : Boolean = {
+    return (validPosition(a, b)  && (!(a==i && b == j)) && cells(a)(b).isAlive)
+  }
+
   // verifica se uma celula deve ser mantida viva
   def shouldKeepAlive(i: Int, j: Int) : Boolean
 
   // verifica se uma celula deve (re)nascer
   def shouldRevive(i: Int, j: Int) : Boolean
 
-  /**
-   * Computa o numero de celulas vizinhas vivas, dada uma posicao no ambiente
-   * de referencia identificada pelos argumentos (i,j).
-   */
+
+  //  /* Computa o numero de celulas vizinhas vivas, dada uma posicao no ambiente
+  //  * de referencia identificada pelos argumentos (i,j).
+  //  *//
   protected def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
     var alive = 0
+    var x = 0
+    var z = 0
 
-    for(a <- (i - 1 to i + 1)) {
-      for(b <- (j - 1 to j + 1)) {
-        if (validPosition(a, b)  && (!(a==i && b == j)) && cells(a)(b).isAlive) {
-          alive += 1
+    if((i==0 || i==height-1) && (j>=1 && j< width-1)){
+      x = returnLineMod(i - 1)
+      for(a <- x to height-1) {
+        for(b <- (returnColumnMod(j - 1) to returnColumnMod(j + 1))) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
+        }
+      }
+
+      x = returnLineMod(i + 1)
+      for(a <- 0 to x) {
+        for(b <- (returnColumnMod(j - 1) to returnColumnMod(j + 1))) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
+        }
+      }
+
+    } else if ( ( j==0 || j==width-1) && (i>=1 && i<height-1)) {
+      x = returnColumnMod(j - 1)
+      for(a <- (returnLineMod(i - 1) to returnLineMod(i + 1))) {
+        for(b <- x to width-1) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
+        }
+      }
+
+      x = returnColumnMod(j + 1)
+      for(a <- (returnLineMod(i - 1) to returnLineMod(i + 1))) {
+        for(b <- 0 to x) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
+        }
+      }
+
+    } else if((i==0 || i==height-1) && (j==0 || j==width-1)){
+      x = returnLineMod(i - 1)
+      for(a <- x to height-1) {
+        z = returnColumnMod(j - 1)
+        for(b <- z to width-1) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
+        }
+
+        z = returnColumnMod(j + 1)
+        for(b <- 0 to z) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
+        }
+      }
+
+      x = returnLineMod(i + 1)
+      for(a <- 0 to x) {
+        z = returnColumnMod(j - 1)
+        for(b <- z to width-1) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
+        }
+
+        z = returnColumnMod(j + 1)
+        for(b <- 0 to z) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
+        }
+      }
+
+    } else {
+      for(a <- (returnLineMod(i - 1) to returnLineMod(i + 1))) {
+        for(b <- (returnColumnMod(j - 1) to returnColumnMod(j + 1))) {
+          if (verifyToCountCell(a,b,i,j)) {
+            alive += 1
+          }
         }
       }
     }
