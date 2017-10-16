@@ -41,6 +41,6 @@ object GameController {
   }
 
   def undo {
-
+    GameView.update
   }
 }
