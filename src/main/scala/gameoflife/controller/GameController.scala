@@ -25,10 +25,10 @@ object GameController {
 
   def makeCellAlive(i: Int, j: Int) {
     try {
+      GameEngineCareTaker.addMemento(Conway.save)
       Conway.makeCellAlive(i, j)
       GameView.update
-    }
-    catch {
+    } catch {
       case ex: IllegalArgumentException => {
         println(ex.getMessage)
       }
@@ -36,11 +36,17 @@ object GameController {
   }
 
   def nextGeneration {
+    GameEngineCareTaker.addMemento(Conway.save)
     Conway.nextGeneration
     GameView.update
   }
 
   def undo {
+    try {
+      Conway.restore(GameEngineCareTaker.getMemento)
+    } catch {
+      case ex: NoSuchElementException => {}
+    }
     GameView.update
   }
 }
