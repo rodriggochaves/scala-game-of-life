@@ -7,7 +7,6 @@ object GameEngineCareTaker extends CareTaker {
     stack.push(m)
   }
 
-  def getMemento(): Memento = {
-    stack.pop();
-  }
+  def getMemento(): Memento =
+    stack.pop()
 }
