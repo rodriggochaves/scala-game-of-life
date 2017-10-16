@@ -3,7 +3,6 @@ package gameoflife.controller
 import scala.collection.mutable.ListBuffer
 import scala.util.control.TailCalls.TailRec
 import scala.annotation.tailrec
-
 import gameoflife.model.Cell
 import gameoflife.model.Statistics
 import gameoflife.Main
@@ -13,7 +12,7 @@ import gameoflife.Main
  *
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-abstract class GameEngine extends Originator {
+abstract class GameEngine{
 
   val height = Main.height
   val width = Main.width
@@ -26,19 +25,7 @@ abstract class GameEngine extends Originator {
       cells(i)(j) = new Cell
     }
   }
-  /**
-    * Salva a grid atual no memento
-    */
-  def save():Memento={
-    return new GameEngineMemento(this.cells);
-  }
 
-  /**
-    * Restaura do memento a grid anterior
-    */
-  def restore(m:Memento)={
-    this.cells = m.cells();
-  }
 
   /**
    * Calcula uma nova geracao do ambiente. Essa implementacao utiliza o

@@ -1,5 +1,4 @@
-package gameoflife.controller
-import gameoflife.controller.CareTaker
+package gameoflife.memento
 
 abstract class GameEngineCareTaker extends CareTaker {
 

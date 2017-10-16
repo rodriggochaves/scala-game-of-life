@@ -1,4 +1,5 @@
-package gameoflife.controller
+package gameoflife.memento
+
 import gameoflife.model.Cell
 
 
@@ -11,6 +12,6 @@ trait Originator {
   def save(): Memento;
   def restore(m: Memento);
 
-  def cells_$eq(cells:Array[Cell]);
+  def cells_$eq(cells:Array[Array[Cell]]);
 
 }

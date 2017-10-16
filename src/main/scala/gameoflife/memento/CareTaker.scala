@@ -1,4 +1,5 @@
-package gameoflife.controller
+package gameoflife.memento
+
 /**
   * CareTaker é o objeto que sabe quando e onde o Originator necessita ser salvo ou restaurado
   */
