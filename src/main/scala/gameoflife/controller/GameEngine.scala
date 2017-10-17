@@ -26,7 +26,6 @@ trait GameEngine {
     }
   }
 
-
   /**
    * Calcula uma nova geracao do ambiente. Essa implementacao utiliza o
    * algoritmo do Conway, ou seja:
