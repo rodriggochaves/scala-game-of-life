@@ -25,7 +25,7 @@ class GameView( var gameEngine: GameEngine, modes: MutableList[GameEngine] ) ext
     width = 1000
     height = 1000
     scene = new Scene {
-      content = List(initializeBoard, controlBoard, modeBoard)
+      content = List(initializeBoard, controlBoard, modeBoard, undoBoard)
     }
     handleEvent(MouseEvent.Any) {
       me: MouseEvent => {
@@ -64,7 +64,7 @@ class GameView( var gameEngine: GameEngine, modes: MutableList[GameEngine] ) ext
     scene.content = new Button {
       text = "next generation"
       onAction = handle { 
-        gameEngine.nextGeneration 
+        GameController.nextGeneration 
         updateBoard
       }
     }
@@ -95,6 +95,20 @@ class GameView( var gameEngine: GameEngine, modes: MutableList[GameEngine] ) ext
     scene.layoutX = 350
     scene.layoutY = 50
     scene.content = vBox
+    return scene
+  }
+
+  private def undoBoard(): SubScene = {
+    val scene = new SubScene(200, 200)
+    scene.layoutX = 500
+    scene.layoutY = 10
+    scene.content = new Button {
+      text = "Undo"
+      onAction = handle {
+        GameController.undo
+        updateBoard
+      }
+    }
     return scene
   }
 

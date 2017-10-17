@@ -6,6 +6,8 @@ import scala.annotation.tailrec
 
 import gameoflife.model.Cell
 import gameoflife.model.Statistics
+import gameoflife.traits.Memento
+import gameoflife.traits.Originator
 import gameoflife.Main
 
 /**
@@ -13,16 +15,34 @@ import gameoflife.Main
  *
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-trait GameEngine {
-  
+abstract class GameEngine extends Originator {
   val height = Main.height
   val width = Main.width
-  def name:String
+
+  def name: String
   val cells = Array.ofDim[Cell](height, width)
 
   for(i <- (0 until height)) {
     for(j <- (0 until width)) {
       cells(i)(j) = new Cell
+    }
+  }
+
+  /**
+   * Salva a grid atual no memento
+   */
+  def save() : Memento = {
+    return new GameEngineMemento(this.cells);
+  }
+
+  /**
+   * Restaura do memento a grid anterior
+   */
+  def restore( m: Memento ) = {
+    for (i <- 0 until height) {
+      for (j <- 0 until width) {
+        this.cells(i)(j) = m.cells(i)(j)
+      }
     }
   }
 
@@ -38,7 +58,6 @@ trait GameEngine {
    *
    * c) em todos os outros casos a celula morre ou continua morta.
    */
-
   def nextGeneration {
     val mustRevive = new ListBuffer[Cell]
     val mustKill = new ListBuffer[Cell]
@@ -63,7 +82,6 @@ trait GameEngine {
       cell.kill
       Statistics.recordKill
     }
-
   }
 
   /*
@@ -71,7 +89,6 @@ trait GameEngine {
    */
   private def validPosition(i: Int, j: Int) =
     i >= 0 && i < height && j >= 0 && j < width;
-
 
   /**
    * Torna a celula de posicao (i, j) viva
@@ -83,12 +100,10 @@ trait GameEngine {
    */
   @throws(classOf[IllegalArgumentException])
   def makeCellAlive(i: Int, j: Int) = {
-    if(validPosition(i, j)){
-      cells(i)(j).revive
-      Statistics.recordRevive
-    } else {
-      throw new IllegalArgumentException
-    }
+    require(validPosition(i, j))
+
+    cells(i)(j).revive
+    Statistics.recordRevive
   }
 
   /**
@@ -102,13 +117,10 @@ trait GameEngine {
    */
   @throws(classOf[IllegalArgumentException])
   def isCellAlive(i: Int, j: Int): Boolean = {
-    if(validPosition(i, j)) {
-      cells(i)(j).isAlive
-    } else {
-      throw new IllegalArgumentException
-    }
-  }
+    require(validPosition(i, j))
 
+    cells(i)(j).isAlive
+  }
 
   /**
    * Retorna o numero de celulas vivas no ambiente.
@@ -119,6 +131,7 @@ trait GameEngine {
    */
   def numberOfAliveCells {
     var aliveCells = 0
+
     for(i <- (0 until height)) {
       for(j <- (0 until width)) {
         if(isCellAlive(i, j)) aliveCells += 1
@@ -239,7 +252,7 @@ trait GameEngine {
         }
       }
     }
+
     alive
   }
-
 }

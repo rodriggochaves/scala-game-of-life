@@ -6,6 +6,7 @@ import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color._
 
 import gameoflife.controller.GameEngine
+import gameoflife.controller.GameController
 
 class CellRectangle( i: Int, j: Int, var gameEngine: GameEngine ) extends Rectangle {
   
@@ -18,7 +19,7 @@ class CellRectangle( i: Int, j: Int, var gameEngine: GameEngine ) extends Rectan
     me: MouseEvent => {
       me.eventType match {
         case MouseEvent.MousePressed => {
-          gameEngine.makeCellAlive(i, j)
+          GameController.makeCellAlive(i, j)
         }
         case _                       => {}
       }
