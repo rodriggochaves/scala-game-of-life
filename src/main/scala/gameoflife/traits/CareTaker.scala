@@ -7,7 +7,7 @@ import scala.collection.mutable.Stack
  * salvo ou restaurado
  */
 trait CareTaker {
-  protected var stack = Stack[Memento]();
+  var stack = Stack[Memento]();
 
   def addMemento(mem: Memento): Unit
   def getMemento: Memento

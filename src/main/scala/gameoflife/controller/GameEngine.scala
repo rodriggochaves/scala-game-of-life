@@ -38,7 +38,7 @@ abstract class GameEngine extends Originator {
   /**
    * Restaura do memento a grid anterior
    */
-  def restore(m: Memento) = {
+  def restore( m: Memento ) = {
     for (i <- 0 until height) {
       for (j <- 0 until width) {
         this.cells(i)(j) = m.cells(i)(j)
