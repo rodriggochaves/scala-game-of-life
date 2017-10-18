@@ -22,6 +22,7 @@ object GameController {
   addGameMode(EasyMode)
   addGameMode(HighLife)
   addGameMode(Teste)
+  addGameMode(Seeds)
 
   //currentMode é a escolha do usuário
   var currentMode:Int = 0
@@ -126,7 +127,6 @@ object GameController {
 
   def undo {
     val mode = getMode(currentMode)
-    print(GameEngineCareTaker.stack.size)
     try {
       mode.restore(GameEngineCareTaker.getMemento)
     } catch {
