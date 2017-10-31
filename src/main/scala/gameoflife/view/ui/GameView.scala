@@ -60,16 +60,35 @@ class GameView( var gameEngine: GameEngine, modes: MutableList[GameEngine] ) ext
   }
 
   private def controlBoard(): SubScene = {
-    val scene = new SubScene(200, 200)
-    scene.content = new Button {
+    var buttons = List[Button]()
+    buttons = buttons :+ new Button {
+      text = "play"
+      onAction = handle{
+        GameController.runThread.keepPlaying = true
+        // GameController.getRunThread().start()
+        updateBoard
+      }
+    }
+    buttons = buttons :+ new Button {
       text = "next generation"
       onAction = handle { 
         GameController.nextGeneration 
         updateBoard
       }
     }
+
+    buttons = buttons :+ new Button{
+      text = "pause"
+      onAction = handle{
+        GameController.runThread.keepPlaying = false
+      }
+    }
+    val scene = new SubScene(200, 200)
     scene.layoutX = 350
     scene.layoutY = 10
+    val vBox = new VBox(10)
+    vBox.children = buttons
+    scene.content = vBox
     return scene
   }
 
@@ -92,7 +111,7 @@ class GameView( var gameEngine: GameEngine, modes: MutableList[GameEngine] ) ext
     val vBox = new VBox(10)
     vBox.children = buttons
     val scene = new SubScene(200, 200)
-    scene.layoutX = 350
+    scene.layoutX = 550
     scene.layoutY = 50
     scene.content = vBox
     return scene
