@@ -17,7 +17,7 @@ import scala.collection.mutable.MutableList
 import gameoflife.controller.GameEngine
 import gameoflife.controller.GameController
 
-class GameView( var gameEngine: GameEngine, modes: MutableList[GameEngine] ) extends JFXApp {
+class GameView( var gameEngine: GameEngine, modes: Array[GameEngine] ) extends JFXApp {
 
   var cells = Array[CellRectangle]()
 
