@@ -26,6 +26,28 @@ object GameController {
 
   //currentMode é a escolha do usuário
   var currentMode:Int = 0
+  
+  // var keepPlaying:Boolean = false
+  
+  var runThread = new Thread{
+    setDaemon(true)
+
+    var keepPlaying = false
+
+    override def run = {
+      while( true ) {
+        Thread.sleep(1000)
+        while( this.keepPlaying ) {
+          nextGeneration
+          Thread.sleep(1000)
+        }
+      }
+    }
+  }
+
+  def getRunThread():Thread = {
+    return runThread
+  }
 
   def getMode( i:Int ):GameEngine = {
     return modes(i)
@@ -48,7 +70,9 @@ object GameController {
         gameView.main(Array())
       }
     }
+
     uiThread.start()
+    runThread.start()
     update
   }
 
@@ -119,7 +143,7 @@ object GameController {
   }
 
   def nextGeneration {
-    val mode = getMode( currentMode )
+    var mode = getMode( currentMode )
     GameEngineCareTaker.addMemento(mode.save)
     getMode(currentMode).nextGeneration
     gameView.updateBoard
