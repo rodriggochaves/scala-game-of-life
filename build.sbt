@@ -9,5 +9,6 @@ lazy val root = (project in file(".")).
     )),
     name := "Hello",
     libraryDependencies += scalaTest % Test,
-    libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.102-R11"
+    libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.102-R11",
+    libraryDependencies += "org.springframework.boot" % "spring-boot-starter-web" % "1.5.8.RELEASE"
   )

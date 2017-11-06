@@ -4,6 +4,8 @@ import scala.collection.mutable.MutableList
 import gameoflife.view.ui.GameView
 import gameoflife.view.terminal.GameListener
 import gameoflife.model.Statistics
+import org.springframework.context.support.ClassPathXmlApplicationContext
+import org.springframework.beans.factory.annotation.Autowired
 
 /**
  * Relaciona o componente View com o componente Model.
@@ -11,18 +13,9 @@ import gameoflife.model.Statistics
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameController {
-  
-  private var modes:MutableList[GameEngine] = new MutableList[GameEngine]
-  
-  def addGameMode(gameMode:GameEngine) {
-    modes += gameMode
-  }
 
-  addGameMode(ConwayEngine)
-  addGameMode(EasyMode)
-  addGameMode(HighLife)
-  addGameMode(Teste)
-  addGameMode(Seeds)
+  val ctx = new ClassPathXmlApplicationContext("applicationContext.xml")
+  var modes = ctx.getBeanDefinitionNames.map( x => ctx.getBean(x).asInstanceOf[GameEngine] )
 
   //currentMode é a escolha do usuário
   var currentMode:Int = 0
@@ -63,7 +56,7 @@ object GameController {
   var gameView: GameView = new GameView( getMode(currentMode), modes )
 
   def start {
-    // chama o update do listener
+    // // chama o update do listener
     val uiThread = new Thread {
       setDaemon(true)
       override def run = {
@@ -87,22 +80,22 @@ object GameController {
   }
 
   def printOptionsGameMode {
-    var option = 0
-    println("\n\n")
+    // var option = 0
+    // println("\n\n")
 
-      println("Select one game modes: \n \n");
-      var indice = 1
-      for(rule <- modes){
-        println(s"[${indice}] - ${rule.name}")
-        indice += 1
-      }
-      println("[-1] - Exit")
+    //   println("Select one game modes: \n \n");
+    //   var indice = 1
+    //   for(rule <- modes){
+    //     println(s"[${indice}] - ${rule.name}")
+    //     indice += 1
+    //   }
+    //   println("[-1] - Exit")
 
-      print("\n \n Option: ");
+    //   print("\n \n Option: ");
 
-      option = parseOptionGameMode(readLine)
+    //   option = parseOptionGameMode(readLine)
 
-    currentMode = option
+    // currentMode = option
   }
 
   def halt() {

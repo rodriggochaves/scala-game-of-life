@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+  <!-- <bean id="GameEngine" 
+        abstract="true"
+        class="gameoflife.controller.GameEngine">
+	</bean> -->
+
+  <bean id="ConwayEngine" 
+    class="gameoflife.controller.ConwayEngine"
+    factory-method = "getInstance">
+  </bean>
+  <bean id="EasyMode" 
+    class="gameoflife.controller.EasyMode"
+    factory-method = "getInstance">
+  </bean>
+  <bean id="HighLife" 
+    class="gameoflife.controller.HighLife"
+    factory-method = "getInstance">
+  </bean>
+  <bean id="Seeds" 
+    class="gameoflife.controller.Seeds"
+    factory-method = "getInstance">
+  </bean>
+  <bean id="Teste" 
+    class="gameoflife.controller.Teste"
+    factory-method = "getInstance">
+  </bean>
+</beans>

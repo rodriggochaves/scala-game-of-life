@@ -16,11 +16,12 @@ import gameoflife.Main
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 abstract class GameEngine extends Originator {
+  
   val height = Main.height
   val width = Main.width
+  val cells = Array.ofDim[Cell](height, width)
 
   def name: String
-  val cells = Array.ofDim[Cell](height, width)
 
   for(i <- (0 until height)) {
     for(j <- (0 until width)) {
@@ -34,6 +35,8 @@ abstract class GameEngine extends Originator {
   def save() : Memento = {
     return new GameEngineMemento(this.cells);
   }
+
+  def getInstance() = this
 
   /**
    * Restaura do memento a grid anterior

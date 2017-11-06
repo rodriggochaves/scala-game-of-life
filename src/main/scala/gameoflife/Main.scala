@@ -1,7 +1,6 @@
 package gameoflife
 
 import scala.collection.mutable.ListBuffer
-
 import gameoflife.controller.GameController
 
 /**
